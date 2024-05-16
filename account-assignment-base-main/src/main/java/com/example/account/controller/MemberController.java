@@ -1,5 +1,6 @@
 package com.example.account.controller;
 
+import com.example.account.dto.MemberLoginDto;
 import com.example.account.dto.MemberSignUpDto;
 import com.example.account.service.MemberService;
 import com.example.account.util.response.CustomApiResponse;
@@ -22,5 +23,15 @@ public class MemberController {
         return result;
 
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<CustomApiResponse<?>> login(
+            @RequestBody MemberLoginDto.Req req){
+        ResponseEntity<CustomApiResponse<?>> result=memberService.login(req);
+        return result;
+    }
+
+
+
 
 }
