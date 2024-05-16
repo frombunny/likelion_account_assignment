@@ -11,12 +11,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity //entity에는 setter 사용 X
-@Table(name="MEMBERS")
+@Table
 @Builder
+@SequenceGenerator(
+        name="MEMBER_SEQ_GENERATOR", // 제너레이터
+        sequenceName="MEMBER_SEQ", // 시퀀스
+        allocationSize= 1 // 할당할 범위 사이즈
+)
 
 public class Member extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
 
     @Column(name="ID") //사용자 고유의 아이디(사용자가 지정하는 것 아님)
     private Long id;
