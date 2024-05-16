@@ -12,4 +12,5 @@ public interface MemberService {
 
     ResponseEntity<CustomApiResponse<?>> login(MemberLoginDto.Req req);
 
+    ResponseEntity<CustomApiResponse<?>> withDraw(String userId);
 }

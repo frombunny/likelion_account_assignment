@@ -19,6 +19,7 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
+    //회원 가입
     @Override
     public ResponseEntity<CustomApiResponse<?>> signUp(MemberSignUpDto.Req req) {
         Member member = req.toEntity();
@@ -33,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
         return ResponseEntity.ok(res);
     }
 
+    //로그인
     @Override
     public ResponseEntity<CustomApiResponse<?>> login(MemberLoginDto.Req req) {
         Optional<Member> optionalMember=memberRepository.findByUserId(req.getUser_id());
@@ -59,6 +61,20 @@ public class MemberServiceImpl implements MemberService {
         CustomApiResponse<MemberLoginDto.Req> res=CustomApiResponse.createSuccess(
                 HttpStatus.OK.value(), memberReq,"로그인이 완료되었습니다.");
         return ResponseEntity.ok(res);
+    }
+
+    //회원 탈퇴(로그인 되어 있는 상태에서 진행)
+    @Override
+    public ResponseEntity<CustomApiResponse<?>> withDraw(String userId) {
+        Optional<Member> optionalMember=memberRepository.findByUserId(userId);
+
+        Member member=optionalMember.get();
+        memberRepository.delete(member);
+        CustomApiResponse<Void> res=CustomApiResponse.createSuccess(
+                HttpStatus.OK.value(),null, "탈퇴되었습니다.");
+
+        return ResponseEntity.ok(res);
+
     }
 
 

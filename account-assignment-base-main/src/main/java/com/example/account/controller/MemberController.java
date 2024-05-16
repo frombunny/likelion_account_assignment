@@ -31,6 +31,14 @@ public class MemberController {
         return result;
     }
 
+    @DeleteMapping("/withDraw/{userId}")
+    public ResponseEntity<CustomApiResponse<?>> withDraw(
+            @PathVariable("userId") String userId){
+        ResponseEntity<CustomApiResponse<?>> result=memberService.withDraw(userId);
+        return result;
+
+    }
+
 
 
 
